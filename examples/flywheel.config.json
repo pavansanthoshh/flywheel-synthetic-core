@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "projectRoot": "..",
+  "baseUrl": "http://127.0.0.1:3000",
+  "allowedHosts": ["127.0.0.1"],
+  "flows": [
+    {
+      "id": "home-smoke",
+      "steps": [
+        { "type": "goto", "path": "/" },
+        { "type": "expectVisible", "selector": "body" }
+      ]
+    }
+  ],
+  "artifactsDir": ".flywheel/artifacts",
+  "patch": { "mode": "dry-run", "allowPaths": ["src/"], "confidenceThreshold": 0.7 },
+  "sandbox": { "image": "node:22-bookworm-slim", "commands": [["npm", "run", "test:unit"]], "timeoutMs": 60000 },
+  "limits": { "flowTimeoutMs": 30000, "workflowTimeoutMs": 180000, "maxAgentCalls": 6, "maxPatchAttempts": 2, "maxFilesChanged": 3, "maxBytesPerFile": 25000 }
+}
